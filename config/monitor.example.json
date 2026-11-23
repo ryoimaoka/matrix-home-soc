@@ -1,0 +1,10 @@
+
+{
+  "network": "192.168.1.0/24",
+  "scan_interval": 300,
+  "mqtt_host": "127.0.0.1",
+  "mqtt_port": 1883,
+  "mqtt_user": "matrix",
+  "mqtt_password": "CHANGE_ME",
+  "interface": "wlan0"
+}
