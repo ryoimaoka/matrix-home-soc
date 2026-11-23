@@ -1,0 +1,16 @@
+
+[Unit]
+Description=MATRIX HOME SOC Suricata MQTT Bridge
+After=network-online.target mosquitto.service suricata.service
+Wants=network-online.target mosquitto.service suricata.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/matrix-home-soc
+ExecStart=/opt/matrix-home-soc/venv/bin/python /opt/matrix-home-soc/app/suricata_bridge.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
