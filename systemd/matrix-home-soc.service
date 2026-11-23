@@ -1,0 +1,16 @@
+
+[Unit]
+Description=MATRIX HOME SOC Network Monitor
+After=network-online.target mosquitto.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/matrix-home-soc
+ExecStart=/opt/matrix-home-soc/venv/bin/python /opt/matrix-home-soc/app/matrix_monitor.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
