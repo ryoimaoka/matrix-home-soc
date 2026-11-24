@@ -69,11 +69,11 @@ Full LAN-wide monitoring would require additional network infrastructure, such a
 
 ## Repository Structure
 
-Documentation, Raspberry Pi source code, M5Stack firmware, configuration examples, and database schemas will be organized in this repository.
+Documentation, Raspberry Pi source code, M5Stack firmware, configuration examples, and database schemas are organized in this repository.
 
 ## Documentation
 
-Installation instructions, system architecture, configuration details, operation procedures, and recovery procedures will be added as the project documentation is completed.
+Installation instructions, system architecture, configuration details, operation procedures, and recovery procedures are documented in this repository.
 
 ## Security Notice
 
