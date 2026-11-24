@@ -73,7 +73,16 @@ Documentation, Raspberry Pi source code, M5Stack firmware, configuration example
 
 ## Documentation
 
-Installation instructions, system architecture, configuration details, operation procedures, and recovery procedures are documented in this repository.
+Detailed documentation is available in the `docs/` directory.
+
+| Document | Description |
+|---|---|
+| [Installation Guide](docs/INSTALLATION.md) | Installation and configuration procedures |
+| [Operations Guide](docs/OPERATIONS.md) | Dashboard operation and system monitoring |
+| [Architecture](docs/ARCHITECTURE.md) | System architecture and data flow |
+| [Security Guide](docs/SECURITY.md) | Security configuration and operational considerations |
+
+For an overview of the project and M5Stack Core2 setup, see this README.
 
 ## Security Notice
 
