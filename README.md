@@ -84,3 +84,96 @@ Before publishing configuration files or screenshots, remove credentials, privat
 ## License
 
 License information will be added after the project contents and publication scope have been reviewed.
+
+## M5Stack Core2 Setup
+
+### Hardware
+
+- M5Stack Core2
+- Raspberry Pi 3 running MATRIX HOME SOC
+
+### Requirements
+
+- Arduino IDE
+- M5Stack board support
+- M5Unified library
+- PubSubClient library
+
+### 1. Open the Firmware
+
+Open the following sketch in Arduino IDE:
+
+```text
+m5stack/matrix_home_soc/matrix_home_soc.ino
+```
+
+### 2. Configure Credentials
+
+Copy `secrets.example.h` to `secrets.h` in the same directory.
+
+Edit `secrets.h` with your own Wi-Fi and MQTT settings.
+
+```cpp
+#define MATRIX_WIFI_SSID "YOUR_WIFI_SSID"
+#define MATRIX_WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
+
+#define MATRIX_MQTT_SERVER "YOUR_RASPBERRY_PI_IP"
+#define MATRIX_MQTT_PORT 1883
+#define MATRIX_MQTT_USER "YOUR_MQTT_USER"
+#define MATRIX_MQTT_PASSWORD "YOUR_MQTT_PASSWORD"
+```
+
+The MQTT settings must match the Mosquitto configuration on the Raspberry Pi.
+
+**Important:** Never commit `secrets.h` to GitHub. Only `secrets.example.h` should be published.
+
+### 3. Install Required Libraries
+
+Install the following libraries using Arduino IDE Library Manager:
+
+- M5Unified
+- PubSubClient
+
+### 4. Select Board and Upload
+
+1. Connect M5Stack Core2 to your PC via USB.
+2. Select the M5Stack Core2 board.
+3. Select the corresponding COM port.
+4. Open `matrix_home_soc.ino`.
+5. Compile and upload the firmware.
+
+### 5. MQTT Connection
+
+After uploading, the M5Stack Core2 connects to the configured Wi-Fi network and communicates with the Raspberry Pi through MQTT.
+
+The firmware uses the following MQTT topics:
+
+| Topic | Purpose |
+|---|---|
+| `matrix/status` | System status |
+| `matrix/events` | Network events |
+| `matrix/inventory` | Device inventory |
+| `matrix/requests/threats` | Threat history requests |
+| `matrix/threats/history` | Threat history |
+| `matrix/traffic` | Network traffic statistics |
+
+### Display Pages
+
+The M5Stack Core2 provides eight monitoring pages:
+
+- HOME
+- NETWORK
+- THREATS
+- SYSTEM
+- DEVICES
+- TRAFFIC
+- POWER
+- SETTINGS
+
+The interface uses a Matrix-inspired black and neon-green HUD design with double-buffered rendering.
+
+### Notes
+
+The M5Stack communicates with the Raspberry Pi over Wi-Fi and MQTT.
+
+The current Raspberry Pi Wi-Fi monitoring configuration does not capture all peer-to-peer traffic between other devices on the home LAN. Full LAN-wide traffic monitoring requires additional network infrastructure such as port mirroring.
