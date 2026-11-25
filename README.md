@@ -2,187 +2,286 @@
 
 **A Raspberry Pi 3 and M5Stack Core2-based home network security monitoring system.**
 
-MATRIX HOME SOC is a self-hosted home security monitoring project that integrates network device discovery, intrusion detection, event collection, traffic monitoring, and real-time visualization.
+MATRIX HOME SOC is a self-hosted home network security monitoring system that integrates network device discovery, intrusion detection, event collection, traffic monitoring, and real-time visualization.
 
 The system uses a Raspberry Pi 3 as its monitoring server and an M5Stack Core2 as a dedicated security dashboard.
 
-## Project Overview
+It combines open-source security tools and custom-developed software to provide practical visibility into home network activity.
 
-MATRIX HOME SOC combines several open-source technologies to provide visibility into network devices, security events, and network traffic.
+## Overview
 
-### Key Features
+MATRIX HOME SOC was designed to bring essential Security Operations Center (SOC) capabilities into a home network environment using affordable hardware and open-source software.
 
-- **Network Discovery:** Automatic device discovery and inventory management using Nmap.
-- **Intrusion Detection:** Network threat detection using Suricata IDS.
-- **Event Collection:** Security event processing and storage using SQLite.
-- **MQTT Integration:** Communication between the Raspberry Pi and M5Stack Core2.
-- **Traffic Monitoring:** Network interface traffic measurement and visualization.
-- **Threat History:** Storage and display of recent security events.
-- **Hardware Dashboard:** Eight-page real-time monitoring interface on M5Stack Core2.
-- **Service Management:** Automatic startup and service recovery using systemd.
+The system provides:
+
+- Network device discovery and inventory management
+- Intrusion Detection System (IDS) monitoring with Suricata
+- Security event collection and storage using SQLite
+- MQTT-based communication between components
+- Network traffic monitoring and visualization
+- Real-time security dashboard on M5Stack Core2
+- Threat event history
+- Automatic service startup and recovery
+
+## Features
+
+### Network Device Discovery
+
+- Network discovery using Nmap
+- Automatic device detection
+- Device inventory management
+- Detection of newly discovered devices
+- Periodic network scanning
+
+### Intrusion Detection
+
+- Suricata IDS integration
+- Security event collection
+- Detection event processing through a custom bridge
+- Threat event storage
+- Threat history visualization
+
+### Network Traffic Monitoring
+
+- Network interface traffic monitoring
+- RX/TX traffic measurement
+- Real-time traffic visualization
+- Traffic statistics collection
+
+### Event Management
+
+- SQLite-based event storage
+- Security event history
+- Device inventory storage
+- MQTT-based event distribution
+
+### M5Stack Security Dashboard
+
+The M5Stack Core2 provides an eight-page dashboard for monitoring network status and security events.
+
+## Dashboard Screenshots
+
+The MATRIX HOME SOC dashboard runs on an M5Stack Core2 and provides eight dedicated screens for monitoring network status, connected devices, threats, system health, and traffic.
+
+### HOME
+
+![MATRIX HOME SOC Dashboard](docs/images/dashboard.jpg)
+
+### NETWORK
+
+![Network Monitoring](docs/images/network.jpg)
+
+### THREATS
+
+![Threat History](docs/images/threats.jpg)
+
+### DEVICES
+
+![Connected Devices](docs/images/devices.jpg)
+
+### TRAFFIC
+
+![Network Traffic](docs/images/traffic.jpg)
+
+### SYSTEM
+
+![System Status](docs/images/system.jpg)
+
+### POWER
+
+![Power Status](docs/images/power.jpg)
+
+### SETTINGS
+
+![Settings](docs/images/settings.jpg)
 
 ## System Architecture
 
+```text
+                    Home Network
+                         |
+                         |
+                  Raspberry Pi 3
+                         |
+        +----------------+----------------+
+        |                |                |
+      Nmap            Suricata       Traffic Monitor
+        |                |                |
+        |          Suricata Bridge        |
+        |                |                |
+        +----------------+----------------+
+                         |
+                    SQLite Database
+                         |
+                    MQTT Broker
+                         |
+                         |
+                  M5Stack Core2
+                         |
+                 Security Dashboard
+```
+
+## Technology Stack
+
 | Component | Technology |
 |---|---|
-| Monitoring Server | Raspberry Pi 3 Model B |
-| Operating System | Ubuntu Server 22.04 LTS |
+| Monitoring Server | Raspberry Pi 3 |
+| Operating System | Ubuntu 22.04 |
 | Network Discovery | Nmap |
-| Intrusion Detection | Suricata IDS |
-| Message Broker | Eclipse Mosquitto |
-| Communication Protocol | MQTT |
-| Event Database | SQLite |
-| Backend | Python |
-| Hardware Dashboard | M5Stack Core2 |
-| Firmware | Arduino Framework |
+| Intrusion Detection | Suricata |
+| Message Broker | Mosquitto MQTT |
+| Database | SQLite |
+| Backend | Python 3 |
+| Device Dashboard | M5Stack Core2 |
+| Dashboard Development | Arduino / M5Stack |
+| Service Management | systemd |
 
-## Dashboard
+## M5Stack Dashboard
 
-The M5Stack Core2 provides an eight-page monitoring interface.
+The M5Stack Core2 provides the following eight screens:
 
-| Page | Description |
+| Screen | Description |
 |---|---|
-| HOME | Overall system status |
-| NETWORK | Network information |
-| THREATS | Security event monitoring |
+| HOME | Overall security monitoring status |
+| NETWORK | Network status and device information |
+| THREATS | Security alerts and threat history |
+| SYSTEM | Monitoring server status |
 | DEVICES | Discovered network devices |
 | TRAFFIC | Network traffic visualization |
-| SYSTEM | Monitoring server status |
-| POWER | Device power information |
-| SETTINGS | Dashboard settings |
+| POWER | Power and battery information |
+| SETTINGS | Dashboard configuration |
 
-## Architecture and Monitoring Scope
+The dashboard uses a custom Matrix-inspired black and neon-green interface.
 
-The Raspberry Pi operates as a Wi-Fi-connected monitoring device.
+The display is implemented using M5Canvas double buffering to provide smooth screen updates.
 
-The current implementation monitors traffic visible to its own network interface and does not provide complete visibility into all unicast communications between other devices on the home LAN.
+## MQTT Topics
 
-Full LAN-wide monitoring would require additional network infrastructure, such as switch port mirroring or an appropriately positioned network sensor.
-
-## Project Goals
-
-- Build a practical home network security monitoring environment.
-- Integrate open-source security technologies.
-- Visualize security information on a standalone hardware dashboard.
-- Maintain security event history.
-- Provide reproducible installation and configuration documentation.
-
-## Repository Structure
-
-Documentation, Raspberry Pi source code, M5Stack firmware, configuration examples, and database schemas are organized in this repository.
-
-## Documentation
-
-Detailed documentation is available in the `docs/` directory.
-
-| Document | Description |
-|---|---|
-| [Installation Guide](docs/INSTALLATION.md) | Installation and configuration procedures |
-| [Operations Guide](docs/OPERATIONS.md) | Dashboard operation and system monitoring |
-| [Architecture](docs/ARCHITECTURE.md) | System architecture and data flow |
-| [Security Guide](docs/SECURITY.md) | Security configuration and operational considerations |
-
-For an overview of the project and M5Stack Core2 setup, see this README.
-
-## Security Notice
-
-This project is intended for educational, experimental, and personal home network monitoring purposes.
-
-Before publishing configuration files or screenshots, remove credentials, private IP addresses, MAC addresses, device identifiers, and other sensitive information.
-
-## License
-
-License information will be added after the project contents and publication scope have been reviewed.
-
-## M5Stack Core2 Setup
-
-### Hardware
-
-- M5Stack Core2
-- Raspberry Pi 3 running MATRIX HOME SOC
-
-### Requirements
-
-- Arduino IDE
-- M5Stack board support
-- M5Unified library
-- PubSubClient library
-
-### 1. Open the Firmware
-
-Open the following sketch in Arduino IDE:
-
-```text
-m5stack/matrix_home_soc/matrix_home_soc.ino
-```
-
-### 2. Configure Credentials
-
-Copy `secrets.example.h` to `secrets.h` in the same directory.
-
-Edit `secrets.h` with your own Wi-Fi and MQTT settings.
-
-```cpp
-#define MATRIX_WIFI_SSID "YOUR_WIFI_SSID"
-#define MATRIX_WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
-
-#define MATRIX_MQTT_SERVER "YOUR_RASPBERRY_PI_IP"
-#define MATRIX_MQTT_PORT 1883
-#define MATRIX_MQTT_USER "YOUR_MQTT_USER"
-#define MATRIX_MQTT_PASSWORD "YOUR_MQTT_PASSWORD"
-```
-
-The MQTT settings must match the Mosquitto configuration on the Raspberry Pi.
-
-**Important:** Never commit `secrets.h` to GitHub. Only `secrets.example.h` should be published.
-
-### 3. Install Required Libraries
-
-Install the following libraries using Arduino IDE Library Manager:
-
-- M5Unified
-- PubSubClient
-
-### 4. Select Board and Upload
-
-1. Connect M5Stack Core2 to your PC via USB.
-2. Select the M5Stack Core2 board.
-3. Select the corresponding COM port.
-4. Open `matrix_home_soc.ino`.
-5. Compile and upload the firmware.
-
-### 5. MQTT Connection
-
-After uploading, the M5Stack Core2 connects to the configured Wi-Fi network and communicates with the Raspberry Pi through MQTT.
-
-The firmware uses the following MQTT topics:
+The system uses MQTT for communication between the Raspberry Pi monitoring components and the M5Stack dashboard.
 
 | Topic | Purpose |
 |---|---|
-| `matrix/status` | System status |
-| `matrix/events` | Network events |
-| `matrix/inventory` | Device inventory |
-| `matrix/requests/threats` | Threat history requests |
-| `matrix/threats/history` | Threat history |
+| `matrix/status` | Overall monitoring status |
+| `matrix/events` | System events |
+| `matrix/inventory` | Network device inventory |
+| `matrix/requests/threats` | Threat-related requests |
+| `matrix/threats/history` | Threat event history |
 | `matrix/traffic` | Network traffic statistics |
 
-### Display Pages
+## Database
 
-The M5Stack Core2 provides eight monitoring pages:
+SQLite is used to store monitoring data and security events.
 
-- HOME
-- NETWORK
-- THREATS
-- SYSTEM
-- DEVICES
-- TRAFFIC
-- POWER
-- SETTINGS
+The database schema is provided in:
 
-The interface uses a Matrix-inspired black and neon-green HUD design with double-buffered rendering.
+`database/matrix_schema.sql`
 
-### Notes
+The database stores information used by the monitoring system, including device inventory and security event records.
 
-The M5Stack communicates with the Raspberry Pi over Wi-Fi and MQTT.
+## Repository Structure
 
-The current Raspberry Pi Wi-Fi monitoring configuration does not capture all peer-to-peer traffic between other devices on the home LAN. Full LAN-wide traffic monitoring requires additional network infrastructure such as port mirroring.
+```text
+matrix-home-soc/
+├── app/
+│   ├── matrix_monitor.py
+│   ├── matrix_traffic.py
+│   └── suricata_bridge.py
+├── config/
+│   ├── monitor.example.json
+│   └── suricata.yaml.example
+├── database/
+│   └── matrix_schema.sql
+├── docs/
+│   ├── images/
+│   │   ├── dashboard.jpg
+│   │   ├── network.jpg
+│   │   ├── threats.jpg
+│   │   ├── devices.jpg
+│   │   ├── traffic.jpg
+│   │   ├── system.jpg
+│   │   ├── power.jpg
+│   │   └── settings.jpg
+│   ├── INSTALLATION.md
+│   ├── OPERATIONS.md
+│   ├── ARCHITECTURE.md
+│   └── SECURITY.md
+├── m5stack/
+│   └── matrix_home_soc/
+│       ├── matrix_home_soc.ino
+│       └── secrets.example.h
+├── systemd/
+│   ├── matrix-home-soc.service
+│   ├── matrix-suricata-bridge.service
+│   └── matrix-traffic.service
+├── .gitignore
+├── README.md
+└── requirements.txt
+```
+
+## Installation
+
+Detailed installation and configuration instructions are available in:
+
+- [Installation Guide](docs/INSTALLATION.md)
+- [Operations Guide](docs/OPERATIONS.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Security Considerations](docs/SECURITY.md)
+
+The repository includes example configuration files and systemd service definitions.
+
+Before deployment, configure the environment-specific settings and credentials.
+
+## Operation
+
+The monitoring components are managed as Linux systemd services.
+
+The system includes services for:
+
+- Main network monitoring
+- Suricata event processing
+- Network traffic monitoring
+
+The services are configured to start automatically and support recovery after service failures.
+
+Refer to the [Operations Guide](docs/OPERATIONS.md) for operational details.
+
+## Monitoring Scope and Limitations
+
+MATRIX HOME SOC is designed for practical home network monitoring.
+
+**Important monitoring limitation:**
+
+When the Raspberry Pi is connected to a normal Wi-Fi network, it can monitor traffic visible to its own network interface, but it cannot necessarily inspect all unicast traffic exchanged directly between other devices on the same LAN.
+
+For full visibility into traffic between other LAN devices, additional network infrastructure such as a managed switch with port mirroring or a network TAP would be required.
+
+This functionality is outside the current project scope.
+
+The system should therefore be understood as a practical home network monitoring solution, not as a complete network-wide packet inspection platform.
+
+## Security Considerations
+
+- Do not commit passwords, API keys, private keys, or other credentials.
+- Keep environment-specific configuration files out of version control.
+- Use the provided example configuration files as templates.
+- Review [Security Considerations](docs/SECURITY.md) before deployment.
+
+## Project Goals
+
+The goal of MATRIX HOME SOC is to demonstrate how affordable hardware and open-source technologies can be combined to build a practical home network security monitoring environment.
+
+This project includes both system integration and custom software development, covering network discovery, IDS integration, event processing, database management, traffic monitoring, and embedded dashboard development.
+
+## Author
+
+**Ryo Imaoka**
+
+Cybersecurity Engineer
+
+GitHub: [@ryoimaoka](https://github.com/ryoimaoka)
+
+## Disclaimer
+
+This project is intended for educational, research, and authorized defensive security monitoring purposes.
+
+Use it only on networks and devices that you own or are authorized to monitor.
